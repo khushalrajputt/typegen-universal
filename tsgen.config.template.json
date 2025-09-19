@@ -1,0 +1,106 @@
+{
+  // TypeGen Universal Inline Generator Configuration
+  // Version: 2.0.0
+  // This template provides comprehensive settings for generating TypeScript interfaces
+  
+  // Database connection string (required only for database enum generation)
+  // Example: "Host=localhost;Database=MyDB;Username=user;Password=pass;Port=5432"
+  "connectionString": "",
+
+  // Assemblies to scan for [ExportToTs] attributed types and inline generation
+  // Supports relative paths from config file location
+  "assembliesToScan": [
+    "../YourProject.Service/bin/Debug/net8.0/YourProject.Service.dll",
+    "../YourProject.Repository/bin/Debug/net8.0/YourProject.Repository.dll"
+  ],
+
+  // Output paths for generated TypeScript files
+  // Supports both relative and absolute paths
+  "typeScriptInterfacesOutputPath": "./src/app/core/models/generated/",
+  "typeScriptEnumsOutputPath": "./src/app/core/enums/generated/",
+
+  // Output path for generated C# enums from database (optional)
+  "cSharpEnumsOutputPath": "../YourProject.Service/Enums/Generated",
+
+  // Database-driven enum configurations (optional)
+  // Generates both C# enums and TypeScript enums from database tables
+  "databaseEnums": [
+    {
+      "tableName": "auth.roles",         // Database table name (with schema if needed)
+      "keyColumn": "role_id",            // Column containing the numeric key
+      "valueColumn": "role_name",        // Column containing the display value
+      "enumName": "Roles",               // Generated enum name
+      "namespace": "YourProject.Service.Enums"  // C# namespace for generated enum
+    }
+  ],
+
+  // Generation options
+  "generateIndexFiles": true,            // Create index.ts files for easy imports
+  "useCamelCase": true,                 // Convert PascalCase to camelCase in TypeScript
+  "addGeneratedHeaders": true,          // Add timestamp headers to generated files
+
+  // ?? Universal Inline Generation Features
+  
+  // Automatically detect and exclude navigation properties (virtual + [ForeignKey])
+  "ignoreNavigationProperties": true,
+  
+  // Generate inline interfaces for ANY class from scanned assemblies
+  // Works regardless of [ExportToTs] attribute - provides complete type safety
+  "generateNestedInterfaces": true,
+  
+  // Include properties marked with [JsonIgnore] as optional TypeScript properties
+  // Useful for audit fields like CreatedBy, CreatedAt, etc.
+  "includeJsonIgnoreProperties": true,
+
+  // Custom type mappings (C# type -> TypeScript type)
+  // Supports full type names for precision
+  "typeMappings": {
+    "System.DateTime": "Date",
+    "System.DateTimeOffset": "Date", 
+    "System.DateOnly": "string",
+    "System.TimeOnly": "string",
+    "System.Guid": "string",
+    "System.TimeSpan": "string",
+    "System.Decimal": "number",
+    "YourProject.CustomType": "string"    // Example custom mapping
+  }
+}
+
+/* 
+?? Key Features:
+
+? Universal Inline Generation
+  - Generates inline interfaces for ANY class from your assemblies
+  - Perfect for DTOs, entities, and complex nested objects
+  - Provides complete type safety without manual configuration
+
+? Smart Navigation Detection  
+  - Automatically excludes Entity Framework navigation properties
+  - Only excludes properties with BOTH [ForeignKey] and virtual keywords
+  - Keeps data composition properties (like Role role)
+
+? Audit Field Support
+  - Includes JsonIgnore audit fields (CreatedBy, CreatedAt, etc.) as optional
+  - Perfect for displaying server-managed fields in UI
+
+? Production Ready
+  - Async/await throughout for performance
+  - Assembly caching and error resilience
+  - Parallel file generation
+  - Comprehensive path resolution
+
+?? Usage Examples:
+
+1. Install as global tool:
+   dotnet tool install -g TypeGen.UniversalInlineGenerator
+
+2. Run in your project directory:
+   typegen
+
+3. Or specify custom config:
+   typegen --config ./custom-config.json
+
+?? For detailed examples and advanced configuration, see:
+   - IMPLEMENTATION-GUIDE.md
+   - https://github.com/khushalrajputt/typegen-universal
+*/

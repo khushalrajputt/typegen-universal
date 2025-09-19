@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    
+    <!-- Package Properties -->
+    <PackageId>TypeGen.UniversalInlineGenerator</PackageId>
+    <Title>TypeGenUniversal - Universal TypeScript Interface Generator</Title>
+    <Version>2.0.0</Version>
+    <Authors>TypeGen Contributors</Authors>
+    <Company>TypeGen</Company>
+    <Description>Production-ready .NET 8 tool for generating TypeScript interfaces with automatic navigation property detection, universal inline generation, and database-driven enums. Optimized for Entity Framework projects.</Description>
+    <PackageTags>typescript;codegen;csharp;dotnet;interfaces;enums;database;entity-framework;dto;universal-inline</PackageTags>
+    <RepositoryUrl>https://github.com/khushalrajputt/typegen-universal</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright � 2025 TypeGen Contributors</Copyright>
+    
+    <!-- Tool Configuration -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>typegen</ToolCommandName>
+    
+    <!-- Build Configuration -->
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    
+    <!-- Performance -->
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <TieredCompilation>true</TieredCompilation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Core Dependencies - Updated to .NET 8 stable versions -->
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+    <PackageReference Include="Npgsql" Version="8.0.5" />
+    
+    <!-- Additional Performance -->
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+
+  <!-- Package Content -->
+  <ItemGroup>
+    <Content Include="tsgen.config.json">
+      <PackagePath>content\tsgen.config.json</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="readme.md">
+      <PackagePath>readme.md</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <!-- Global Tool Properties -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>true</Optimize>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+</Project>
